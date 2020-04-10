@@ -106,6 +106,6 @@ def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
 
 
 # NOTE: Comment Out for test to PASS #
-""" cities_within = cityreader_stretch(lat1, lon1, lat2, lon2, cities)
+cities_within = cityreader_stretch(lat1, lon1, lat2, lon2, cities)
 for c in cities_within:
-    print(f"{c.name}: {c.lat}, {c.lon}") """
+    print(f"{c.name}: {c.lat}, {c.lon}")
