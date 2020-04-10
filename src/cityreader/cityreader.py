@@ -12,7 +12,6 @@ class City:
     def __str__(self):
         return str(f"{self.name}, {self.lat}, {self.lon}")
 
-
     # We have a collection of US cities with population over 750,000 stored in the
     # file "cities.csv". (CSV stands for "comma-separated values".)
     #
@@ -34,9 +33,11 @@ def cityreader(cities=[]):
     # `cities` list
     with open("/Users/toshamasters/Desktop/CS_28/Week1_IntroToPython/Sprint/Sprint-Challenge--Intro-Python/src/cityreader/cities.csv", "r") as csvfile:
         read_csv = csv.reader(csvfile)
+        next(read_csv)  # Points to the next line
         for row in read_csv:
-            if row[0] != "city":
-                cities.append(City(row[0], float(row[3]), float(row[4])))
+            # if row[0] != "city": # This was a good work around but next() is general
+            cities.append(City(row[0], float(row[3]), float(row[4])))
+
     return cities
 
 
@@ -96,12 +97,15 @@ def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
     # the specified coordinates.
 
     for c in cities:
-        if lat1 < c.lat < lat2 or lat2 < c.lat < lat1 and lon1 < c.lon < lon2 or lon2 < c.lon < lon1:
-            within.append(City(c.name, c.lat, c.lon))
+        # if lat1 <= c.lat <= lat2 or lat2 <= c.lat <= lat1 and lon1 <= c.lon <= lon2 or lon2 <= c.lon <= lon1:
+        #within.append(City(c.name, c.lat, c.lon))
 
+        if (min(lat1, lat2) < c.lat < max(lat1, lat2)) and ((min(lon1, lon2) < c.lon < max(lon1, lon2))):
+            within.append(City(c.name, c.lat, c.lon))
     return within
 
 
-cities_within = cityreader_stretch(lat1, lon1, lat2, lon2, cities)
+# NOTE: Comment Out for test to PASS #
+""" cities_within = cityreader_stretch(lat1, lon1, lat2, lon2, cities)
 for c in cities_within:
-    print(f"{c.name}: {c.lat}, {c.lon}")
+    print(f"{c.name}: {c.lat}, {c.lon}") """
