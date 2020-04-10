@@ -76,30 +76,32 @@ for c in cities:
 # Salt Lake City: (40.7774,-111.9301)
 
 # TODO Get latitude and longitude values from the user
+print()
+user_input_lat1 = input("Input first [latitude] then [Enter]: ")
+user_input_lon1 = input("Input first [longitude] then [Enter]: ")
+user_input_lat2 = input("Input second [latitude] then [Enter]: ")
+user_input_lon2 = input("Input second [longitude] then [Enter]: ")
+lat1 = float(user_input_lat1)
+lat2 = float(user_input_lat2)
+lon1 = float(user_input_lon1)
+lon2 = float(user_input_lon2)
 
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
     # within will hold the cities that fall within the specified region
     within = []
-    lat = [min(lat1, lat2), max(lat1, lat2)]
-    lon = [min(lon1, lon2), max(lon1, lon2)]
+
+    # TODO Ensure that the lat and lon valuse are all floats
+    # Go through each city and check to see if it falls within
+    # the specified coordinates.
+
     for c in cities:
-        if c.lat >= lat[0] and c.lat <= lat[1] and c.lon >= lon[0] and c.lon <= lon[1]:
-            within.append(c)
+        if lat1 < c.lat < lat2 or lat2 < c.lat < lat1 and lon1 < c.lon < lon2 or lon2 < c.lon < lon1:
+            within.append(City(c.name, c.lat, c.lon))
 
-        # TODO Ensure that the lat and lon valuse are all floats
-        # Go through each city and check to see if it falls within
-        # the specified coordinates.
-
-        return within
+    return within
 
 
-# Work In Progress
-""" user_input_lat1 = input("Input first [latitude] then [Enter]:"),
-user_input_lat2 = input("Input second [latitude] then [Enter]:"),
-user_input_lon1 = input("Input first [longitude] then [Enter]:"),
-user_input_lon1 = input("Input second [longitude] then [Enter]:")
-cities_within = cityreader_stretch(
-    float(user_input_lat1), float(user_input_lon1), float(user_input_lat2), float(user_input_lon2), cities)
+cities_within = cityreader_stretch(lat1, lon1, lat2, lon2, cities)
 for c in cities_within:
-    print(c) """
+    print(f"{c.name}: {c.lat}, {c.lon}")
